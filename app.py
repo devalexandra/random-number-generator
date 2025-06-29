@@ -25,4 +25,11 @@ def favicon():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Render provides PORT
     app.run(host="0.0.0.0", port=port)
+import os
+
+@app.route("/")
+def serve_index():
+    index_path = os.path.join(app.static_folder, "index.html")
+    print(f"Looking for index.html at: {index_path}")
+    return send_from_directory(app.static_folder, "index.html")
 
