@@ -1,17 +1,7 @@
-from flask import Flask, jsonify
-import random
 
-app = Flask(__name__)
-
-@app.route("/generate")
-def generate_number():
-    number = random.randint(1, 10000)
-    return jsonify({"number": number})
-
-if __name__ == "__main__":
-    app.run()
 from flask import Flask, jsonify, send_from_directory
 import random
+import os
 
 app = Flask(__name__, static_folder="static")
 
@@ -23,3 +13,7 @@ def index():
 def generate_number():
     number = random.randint(1, 10000)
     return jsonify({"number": number})
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # use Render's PORT, fallback to 5000 for local
+    app.run(host="0.0.0.0", port=port)
